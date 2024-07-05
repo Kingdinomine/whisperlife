@@ -1,0 +1,233 @@
+<html><head><base href="https://whisperlife.io/" />
+<title>WhisperLife - Share Your Story Anonymously</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #ff6b6b;
+    text-shadow: 0 0 10px #ff6b6b55;
+  }
+  .whisper-form {
+    background-color: #16213e;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 20px #4ecca350;
+  }
+  textarea {
+    width: 100%;
+    height: 150px;
+    background-color: #0f3460;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: #e0e0e0;
+    font-size: 16px;
+    resize: vertical;
+  }
+  button {
+    background-color: #e94560;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #ff6b6b;
+  }
+  .whisper {
+    background-color: #16213e;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: 0 0 15px #4ecca330;
+  }
+  .whisper-content {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+  .whisper-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #888;
+  }
+  .whisper-actions button {
+    background-color: transparent;
+    color: #888;
+    padding: 5px 10px;
+    margin-left: 10px;
+  }
+  .whisper-actions button:hover {
+    color: #e94560;
+  }
+  .comments {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #2a2a4a;
+  }
+  .comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #0f3460;
+    border-radius: 5px;
+  }
+  .glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 5px #4ecca3, 0 0 10px #4ecca3;
+    }
+    to {
+      box-shadow: 0 0 10px #4ecca3, 0 0 20px #4ecca3;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="glow">WhisperLife</h1>
+    <div class="whisper-form">
+      <textarea placeholder="Share your life story anonymously..."></textarea>
+      <button onclick="postWhisper()">Whisper</button>
+    </div>
+    
+    <div id="whispers">
+      <div class="whisper">
+        <div class="whisper-content">
+          I never thought I'd find love again after my divorce, but life had other plans. At 45, I met someone who made me believe in second chances. We're getting married next month, proving it's never too late for a new beginning.
+        </div>
+        <div class="whisper-footer">
+          <span>#WhisperUser1234</span>
+          <div class="whisper-actions">
+            <button onclick="likeWhisper(this)">❤️ 42</button>
+            <button onclick="dislikeWhisper(this)">👎 3</button>
+            <button onclick="showComments(this)">💬 12</button>
+          </div>
+        </div>
+        <div class="comments" style="display: none;">
+          <div class="comment">
+            <p>This gives me hope. Congratulations!</p>
+            <small>#WhisperUser5678</small>
+          </div>
+          <div class="comment">
+            <p>Beautiful story. Wishing you all the happiness!</p>
+            <small>#WhisperUser9101</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="whisper">
+        <div class="whisper-content">
+          Today marks 5 years since I quit my soul-crushing corporate job to pursue my passion for photography. It wasn't easy, but every struggle was worth it. Now I travel the world, capturing moments and living my dream. Don't be afraid to take that leap!
+        </div>
+        <div class="whisper-footer">
+          <span>#WhisperUser5678</span>
+          <div class="whisper-actions">
+            <button onclick="likeWhisper(this)">❤️ 78</button>
+            <button onclick="dislikeWhisper(this)">👎 1</button>
+            <button onclick="showComments(this)">💬 23</button>
+          </div>
+        </div>
+        <div class="comments" style="display: none;">
+          <div class="comment">
+            <p>Your story is inspiring! Any advice for someone wanting to make a similar change?</p>
+            <small>#WhisperUser2468</small>
+          </div>
+          <div class="comment">
+            <p>I did something similar last year. Best decision ever!</p>
+            <small>#WhisperUser1357</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function postWhisper() {
+      const whisperContent = document.querySelector('textarea').value;
+      if (whisperContent.trim() === '') return;
+
+      const whisperElement = document.createElement('div');
+      whisperElement.className = 'whisper';
+      whisperElement.innerHTML = `
+        <div class="whisper-content">${whisperContent}</div>
+        <div class="whisper-footer">
+          <span>#WhisperUser${Math.floor(Math.random() * 10000)}</span>
+          <div class="whisper-actions">
+            <button onclick="likeWhisper(this)">❤️ 0</button>
+            <button onclick="dislikeWhisper(this)">👎 0</button>
+            <button onclick="showComments(this)">💬 0</button>
+          </div>
+        </div>
+        <div class="comments" style="display: none;"></div>
+      `;
+
+      document.getElementById('whispers').prepend(whisperElement);
+      document.querySelector('textarea').value = '';
+
+      setTimeout(() => {
+        const editButton = document.createElement('button');
+        editButton.textContent = '✏️ Edit';
+        editButton.onclick = () => editWhisper(whisperElement);
+        whisperElement.querySelector('.whisper-actions').appendChild(editButton);
+      }, 100);
+
+      setTimeout(() => {
+        whisperElement.querySelector('.whisper-actions button:last-child').remove();
+      }, 900000); // 15 minutes
+    }
+
+    function likeWhisper(button) {
+      const count = parseInt(button.textContent.split(' ')[1]) + 1;
+      button.innerHTML = `❤️ ${count}`;
+    }
+
+    function dislikeWhisper(button) {
+      const count = parseInt(button.textContent.split(' ')[1]) + 1;
+      button.innerHTML = `👎 ${count}`;
+    }
+
+    function showComments(button) {
+      const commentsSection = button.closest('.whisper').querySelector('.comments');
+      commentsSection.style.display = commentsSection.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function editWhisper(whisperElement) {
+      const content = whisperElement.querySelector('.whisper-content');
+      const currentText = content.textContent;
+      content.innerHTML = `<textarea>${currentText}</textarea>
+        <button onclick="saveEdit(this)">Save</button>
+        <button onclick="cancelEdit(this)">Cancel</button>`;
+    }
+
+    function saveEdit(button) {
+      const whisperElement = button.closest('.whisper');
+      const newContent = whisperElement.querySelector('textarea').value;
+      whisperElement.querySelector('.whisper-content').innerHTML = newContent;
+    }
+
+    function cancelEdit(button) {
+      const whisperElement = button.closest('.whisper');
+      const originalContent = whisperElement.querySelector('textarea').value;
+      whisperElement.querySelector('.whisper-content').innerHTML = originalContent;
+    }
+  </script>
+</body></html>
